@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="jquery.3dsmenu.css" type="text/css" media="screen, projection"/>
   <script type="text/javascript">
     $(document).ready(function(){
-        $("ul").dsmenu();
+        $("ul").dsmenu('init');
         $("a.add").bind('click', function(){
-            $("ul").dsmenu.expand();
+            $("ul").dsmenu('expand');
         }).css('z-index', 9999);
         $("a.remove").bind('click', function(){
-            $("ul").dsmenu.contract();
+            $("ul").dsmenu('contract');
         }).css('z-index', 9999);
     });
   </script>
