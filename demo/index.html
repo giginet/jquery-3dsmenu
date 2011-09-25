@@ -10,17 +10,54 @@
   <link rel="stylesheet" href="jquery.3dsmenu.css" type="text/css" media="screen, projection"/>
   <script type="text/javascript">
     $(document).ready(function(){
-            $("ul").dsmenu();
+        $("ul").dsmenu();
+        $("a.add").bind('click', function(){
+            $("ul").dsmenu.expand();
+        }).css('z-index', 9999);
+        $("a.remove").bind('click', function(){
+            $("ul").dsmenu.contract();
+        }).css('z-index', 9999);
     });
   </script>
   <link media="screen, projection" type="text/css" rel="stylesheet" href="jquery.3dsmenu.css">
   <body>
-      <ul class="parent">
+     <ul class="parent">
           <li></li>
           <li></li>
           <li></li>
           <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+      </ul>
     </div>
+    <a href="javascript:void(0);" class="add">add</a>
+    <a href="javascript:void(0);" class="remove">remove</a>
   </body>
 </html>
 
