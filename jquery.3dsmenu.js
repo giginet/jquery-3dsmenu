@@ -14,49 +14,51 @@
         sortable : true,
     };
     var row = options.row.initial;
-    var $container;
     var methods = {
         init : function(custom){
             if(!custom) custom = {};
             options = $.extend(true, options, custom);
-            row = options.row.initial;
-            $container = $(this);
-            var $cells = $container.find('li').css({
-                width    : '30px',
-                height   : '30px',
-                position : 'absolute',
-                display  : 'block',
-                right    : 0,
-                bottom   : 0
+            $(this).each(function(){
+                row = options.row.initial;
+                var $cells = $(this).find('li').css({
+                    width    : '30px',
+                    height   : '30px',
+                    position : 'absolute',
+                    display  : 'block',
+                    right    : 0,
+                    bottom   : 0
+                });
+                $(this).dsmenu('setRow', options.row.initial);
             });
-            $(this).dsmenu('setRow', options.row.initial);
         },
         setRow : function(newRow, animation){
-            row = newRow;
-            var $ul = $(this);
-            var $cells = $(this).find('li');
-            $cells.each(function(i){
-                $cell = $(this);
-                var c = Math.floor(i / row);
-                var r = i % row;
-                var h = ($container.height() - options.margin[0] * (row +1))/row;
-                var w = h;
-                var x = (options.margin[0] + (w + options.margin[0]) * c);
-                var y = (options.margin[1] + (h + options.margin[1]) * r);
-                var duration = animation ? options.animationDuration : 0;
-                $cell.position({
-                    of : $ul,
-                    at : 'left top',
-                    my : 'left top',
-                    offset : x + " " + y,
-                    using : function(result){
-                        $cell.animate({'top' : result.top,
-                                      'left' : result.left,
-                                      'width' : w,
-                                      'height' : h
-                        }, duration)
-                    },
-                    collision : "flip flip"
+            $(this).each(function(){
+                row = newRow;
+                var $ul = $(this);
+                var $cells = $(this).find('li');
+                $cells.each(function(i){
+                    $cell = $(this);
+                    var c = Math.floor(i / row);
+                    var r = i % row;
+                    var h = ($ul.height() - options.margin[0] * (row +1))/row;
+                    var w = h;
+                    var x = (options.margin[0] + (w + options.margin[0]) * c);
+                    var y = (options.margin[1] + (h + options.margin[1]) * r);
+                    var duration = animation ? options.animationDuration : 0;
+                    $cell.position({
+                        of : $ul,
+                        at : 'left top',
+                        my : 'left top',
+                        offset : x + " " + y,
+                        using : function(result){
+                            $cell.animate({'top' : result.top,
+                                          'left' : result.left,
+                                          'width' : w,
+                                          'height' : h
+                            }, duration)
+                        },
+                        collision : "flip flip"
+                    });
                 });
             });
         },
