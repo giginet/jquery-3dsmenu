@@ -41,7 +41,7 @@
                     $cell = $(this);
                     var c = Math.floor(i / row);
                     var r = i % row;
-                    var h = ($ul.height() - options.margin[0] * (row +1))/row;
+                    var h = ($ul.height() - options.margin[0] * (row + 1)) / row;
                     var w = h;
                     var x = (options.margin[0] + (w + options.margin[0]) * c);
                     var y = (options.margin[1] + (h + options.margin[1]) * r);
@@ -52,10 +52,11 @@
                         my : 'left top',
                         offset : x + " " + y,
                         using : function(result){
-                            $cell.animate({'top' : result.top,
-                                          'left' : result.left,
-                                          'width' : w,
-                                          'height' : h
+                            $cell.animate({
+                                'top'    : result.top,
+                                'left'   : result.left,
+                                'width'  : w,
+                                'height' : h
                             }, duration)
                         },
                         collision : "flip flip"
