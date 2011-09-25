@@ -30,10 +30,12 @@
                 });
                 $(this).dsmenu('setRow', options.row.initial);
             });
+            return this;
         },
         setRow : function(newRow, animation){
             $(this).each(function(){
                 var row = newRow;
+                if(row < options.row.min || row > options.row.max) return true;
                 $.data(this, 'row', row);
                 var $ul = $(this);
                 var $cells = $(this).find('li');
@@ -63,6 +65,7 @@
                     });
                 });
             });
+            return this;
         },
         disable : function(){
         },
@@ -70,6 +73,7 @@
             return $.map($(this).get(), function(elem, i){
                 return $.data(elem, 'row');
             });
+            return this;
         },
         expand : function(){
             $(this).each(function(){
@@ -79,6 +83,7 @@
                     $(this).dsmenu('setRow', newRow, options.animation);
                 }
             });
+            return this;
         },
         contract : function(){
             $(this).each(function(){
@@ -88,6 +93,7 @@
                     $(this).dsmenu('setRow', newRow, options.animation);
                 }
             });
+            return this;
         }
     };
 
