@@ -1,18 +1,19 @@
 (function(){
     var pluginName = 'dsmenu';
     var options = {
-        animation : true,
+        animation         : true,
         animationDuration : 'normal',
-        margin : [3, 3],
-        row : {
-            initial : 3,
-            max : 6,
-            min : 1
+        margin            : [3, 3],
+        row               : {
+                             initial : 3,
+                             max     : 6,
+                             min     : 1
         },
-        resizable : true,
-        scroll : true,
-        sortable : true,
+        resizable         : true,
+        scroll            : true,
+        sortable          : true,
     };
+
     var methods = {
         init : function(custom){
             if(!custom) custom = {};
@@ -28,7 +29,7 @@
                     right    : 0,
                     bottom   : 0
                 });
-                $(this).dsmenu('setRow', options.row.initial);
+                $(this)[pluginName]('setRow', options.row.initial);
             });
             return this;
         },
@@ -68,6 +69,7 @@
             return this;
         },
         disable : function(){
+            return this;
         },
         row : function(){
             return $.map($(this).get(), function(elem, i){
@@ -80,7 +82,7 @@
                 var row = $.data(this, 'row');
                 if(row < options.row.max){
                     var newRow = row + 1;
-                    $(this).dsmenu('setRow', newRow, options.animation);
+                    $(this)[pluginName]('setRow', newRow, options.animation);
                 }
             });
             return this;
@@ -90,7 +92,7 @@
                 var row = $.data(this, 'row');
                 if(row > Math.max(0, options.row.min)){
                     var newRow = row - 1;
-                    $(this).dsmenu('setRow', newRow, options.animation);
+                    $(this)[pluginName]('setRow', newRow, options.animation);
                 }
             });
             return this;
@@ -108,6 +110,5 @@
             return this;
         }
     };
-
 
 })(jQuery);
