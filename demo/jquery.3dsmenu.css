@@ -1,0 +1,10 @@
+ul {
+    width: 60%;
+    height: 300px;
+    border: 1px solid #777;
+    background-color: #fbca93;
+}
+
+li {
+   background-color: #bcd5e6;
+}
