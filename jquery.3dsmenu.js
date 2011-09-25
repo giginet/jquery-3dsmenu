@@ -2,7 +2,7 @@
     var pluginName = 'dsmenu';
     var options = {
         animation : true,
-        animationDuration : 'slow',
+        animationDuration : 'normal',
         margin : [3, 3],
         row : {
             initial : 3,
@@ -41,14 +41,21 @@
                 var r = i % row;
                 var h = ($container.height() - options.margin[0] * (row +1))/row;
                 var w = h;
-                $cell.width(w);
-                $cell.height(h);
+                var x = (options.margin[0] + (w + options.margin[0]) * c);
+                var y = (options.margin[1] + (h + options.margin[1]) * r);
+                var duration = animation ? options.animationDuration : 0;
                 $cell.position({
                     of : $ul,
                     at : 'left top',
                     my : 'left top',
-                    offset : (options.margin[0] + (w + options.margin[0]) * c) + " " + (options.margin[1] + (h + options.margin[1]) * r),
-                    using : undefined,
+                    offset : x + " " + y,
+                    using : function(result){
+                        $cell.animate({'top' : result.top,
+                                      'left' : result.left,
+                                      'width' : w,
+                                      'height' : h
+                        }, duration)
+                    },
                     collision : "flip flip"
                 });
             });
@@ -61,25 +68,25 @@
         expand : function(){
             if(row < options.row.max){
                 var newRow = row + 1;
-                $(this).dsmenu('setRow', newRow);
+                $(this).dsmenu('setRow', newRow, options.animation);
             }
         },
         contract : function(){
             if(row > Math.max(0, options.row.min)){
                 var newRow = row - 1;
-                $(this).dsmenu('setRow', newRow);
+                $(this).dsmenu('setRow', newRow, options.animation);
             }
         }
     };
 
     $.fn[pluginName] = function(method) {
-        if (method) {
+        if(method){
             return methods[method]
-            .apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on jQuery.' + plugname );
+            .apply(this, Array.prototype.slice.call(arguments, 1));
+        }else if(typeof method === 'object' || !method){
+            return methods.init.apply(this, arguments);
+        }else{
+            $.error('Method ' +  method + ' does not exist on jQuery.' + pluginName);
             return this;
         }
     };

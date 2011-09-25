@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="jquery.3dsmenu.css" type="text/css" media="screen, projection"/>
   <script type="text/javascript">
     $(document).ready(function(){
-        $("ul").dsmenu('init');
+        $("ul").dsmenu('init', {row : {max : 1000}});
         $("a.add").bind('click', function(){
             $("ul").dsmenu('expand');
         }).css('z-index', 9999);
