@@ -39,21 +39,18 @@
                 if(row < options.row.min || row > options.row.max) return true;
                 $.data(this, 'row', row);
                 var $ul = $(this);
-                var $cells = $(this).find('li');
-                $cells.each(function(i){
+                $(this).find('li').each(function(i){
                     $cell = $(this);
-                    var c = Math.floor(i / row);
-                    var r = i % row;
                     var h = ($ul.height() - options.margin[0] * (row + 1)) / row;
                     var w = h;
-                    var x = (options.margin[0] + (w + options.margin[0]) * c);
-                    var y = (options.margin[1] + (h + options.margin[1]) * r);
+                    var x = (options.margin[0] + (w + options.margin[0]) * Math.floor(i / row));
+                    var y = (options.margin[1] + (h + options.margin[1]) * (i % row));
                     var duration = animation ? options.animationDuration : 0;
                     $cell.position({
                         of : $ul,
                         at : 'left top',
                         my : 'left top',
-                        offset : x + " " + y,
+                        offset : x + ' ' + y,
                         using : function(result){
                             $cell.animate({
                                 'top'    : result.top,
@@ -62,7 +59,7 @@
                                 'height' : h
                             }, duration)
                         },
-                        collision : "flip flip"
+                        collision : 'flip flip'
                     });
                 });
             });
