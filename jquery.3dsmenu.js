@@ -13,13 +13,13 @@
         scroll : true,
         sortable : true,
     };
-    var row = options.row.initial;
     var methods = {
         init : function(custom){
             if(!custom) custom = {};
             options = $.extend(true, options, custom);
             $(this).each(function(){
-                row = options.row.initial;
+                var row = options.row.initial;
+                $.data(this, 'row', options.row.initial);
                 var $cells = $(this).find('li').css({
                     width    : '30px',
                     height   : '30px',
@@ -33,7 +33,8 @@
         },
         setRow : function(newRow, animation){
             $(this).each(function(){
-                row = newRow;
+                var row = newRow;
+                $.data(this, 'row', row);
                 var $ul = $(this);
                 var $cells = $(this).find('li');
                 $cells.each(function(i){
@@ -65,19 +66,27 @@
         disable : function(){
         },
         row : function(){
-            return row;
+            return $.map($(this).get(), function(elem, i){
+                return $.data(elem, 'row');
+            });
         },
         expand : function(){
-            if(row < options.row.max){
-                var newRow = row + 1;
-                $(this).dsmenu('setRow', newRow, options.animation);
-            }
+            $(this).each(function(){
+                var row = $.data(this, 'row');
+                if(row < options.row.max){
+                    var newRow = row + 1;
+                    $(this).dsmenu('setRow', newRow, options.animation);
+                }
+            });
         },
         contract : function(){
-            if(row > Math.max(0, options.row.min)){
-                var newRow = row - 1;
-                $(this).dsmenu('setRow', newRow, options.animation);
-            }
+            $(this).each(function(){
+                var row = $.data(this, 'row');
+                if(row > Math.max(0, options.row.min)){
+                    var newRow = row - 1;
+                    $(this).dsmenu('setRow', newRow, options.animation);
+                }
+            });
         }
     };
 
