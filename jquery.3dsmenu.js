@@ -14,19 +14,12 @@
         }, options);
         $(this).each(function(){
             $ul = $(this);
-            $li = $ul.find('li').css({
-                width: '75px',
-                height: '75px',
-                position: 'absolute',
-                display: 'block',
-                right: 0,
-                bottom: 0
-            });
+            $li = $ul.find('li')
             $li.position({
                 of : $ul,
                 at : 'left top',
                 my : 'left top',
-                offset : '100 100',
+                offset : '0 0',
                 using : undefined,
                 collision : "flip flip"
             });

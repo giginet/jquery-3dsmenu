@@ -1,10 +1,19 @@
 ul {
     width: 60%;
-    height: 300px;
+    margin: 10px auto;
+    padding: 5px;
     border: 1px solid #777;
     background-color: #fbca93;
+    text-align: center;
 }
 
 li {
-   background-color: #bcd5e6;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    display: block;
+    right: 0;
+    bottom: 0;
+    background-color: #bcd5e6;
+    text-align: center;
 }
