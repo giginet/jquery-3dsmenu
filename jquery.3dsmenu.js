@@ -5,7 +5,6 @@
         animationDuration : 'normal',
         margin            : [3, 3],
         maxSize           : false,
-        resizable         : true,
         row               : {
                              initial : 3,
                              max     : 6,
@@ -66,50 +65,50 @@
                 var $ul = $(this);
                 $(this).find('li').each(function(i){
                     $cell = $(this);
-                    var calc = ($ul.innerHeight() - options.margin[0] * (row + 1)) / row;
-                    if (typeof(options.maxSize) === 'Object') {
+                    var calc = ($ul.innerHeight() - options.margin[1] * (row + 1)) / row;
+                    if (typeof(options.maxSize) === 'object') {
                         var h = Math.min(calc / row, options.maxSize[1]);
                         var w = Math.min(calc, options.maxSize[0]);
-                    } else if(typeof(options.maxSize) === 'Number'){
+                    } else if(typeof(options.maxSize) === 'number'){
                         var h = Math.min(calc, options.maxSize);
                         var w = Math.min(calc, options.maxSize);
                     } else {
                         var h = calc;
                         var w = calc;
                     }
+                    marginTop = ($ul.innerHeight() - (options.margin[1] * (row - 1) + h * row))/2;
                     var x = (options.margin[0] + (w + options.margin[0]) * Math.floor(i / row));
-                    var y = (options.margin[1] + (h + options.margin[1]) * (i % row));
+                    var y = (marginTop + (h + options.margin[1]) * (i % row));
                     var duration = animation ? options.animationDuration : 0;
-                    $cell.draggable({
-                        cursorAt : { top : h/2 , left : w/2 },
-                        delay    : 500,
-                        opacity  : 0.5,
-                        revert   : 'invalid',
-                        revertDuration : 100,
-                        zIndex   : 9999
-                    });
-                    $cell.droppable({
-                        accept : $ul.find('li'),
-                        drop : function(event, ui){
-                            var duration = options.animation ? options.animationDuration : 0;
-                            var $drag = ui.draggable;
-                            var $drop = $(this);
-                            var dragPosition = { x : $drag.attr('x'), y : $drag.attr('y') };
-                            var dropPosition = { x : $drop.attr('x'), y : $drop.attr('y') };
-                            moveCell($drag, dropPosition.x, dropPosition.y, $ul, w, h, duration);
-                            moveCell($drop, dragPosition.x, dragPosition.y, $ul, w, h, duration);
-                            $drop2 = $drop.clone().insertAfter($drop);
-                            $drag2 = $drag.clone().insertAfter($drag);
-                            $drag2.replaceWith($drop);
-                            $drop2.replaceWith($drag);
-                        }
-                    });
+                    if(options.sortable){
+                        $cell.draggable({
+                            cursorAt : { top : h/2 , left : w/2 },
+                            delay    : 500,
+                            opacity  : 0.5,
+                            revert   : 'invalid',
+                            revertDuration : 100,
+                            zIndex   : 9999
+                        });
+                        $cell.droppable({
+                            accept : $ul.find('li'),
+                            drop : function(event, ui){
+                                var duration = options.animation ? options.animationDuration : 0;
+                                var $drag = ui.draggable;
+                                var $drop = $(this);
+                                var dragPosition = { x : $drag.attr('x'), y : $drag.attr('y') };
+                                var dropPosition = { x : $drop.attr('x'), y : $drop.attr('y') };
+                                moveCell($drag, dropPosition.x, dropPosition.y, $ul, w, h, duration);
+                                moveCell($drop, dragPosition.x, dragPosition.y, $ul, w, h, duration);
+                                $drop2 = $drop.clone().insertAfter($drop);
+                                $drag2 = $drag.clone().insertAfter($drag);
+                                $drag2.replaceWith($drop);
+                                $drop2.replaceWith($drag);
+                            }
+                        });
+                    }
                     moveCell($cell, x, y, $ul, w, h, duration);
                 });
             });
-            return this;
-        },
-        disable : function(){
             return this;
         },
         row : function(){

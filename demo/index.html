@@ -10,101 +10,23 @@
   <link rel="stylesheet" href="jquery.3dsmenu.css" type="text/css" media="screen, projection"/>
   <script type="text/javascript">
     $(document).ready(function(){
-        $("ul.menu").dsmenu('init', {row : {max : 1000}});
+        var $ul = $('ul.menu');
+        $(new Array(79)).each(function(i){
+            $ul.append($('<li>').css('background-image', 'url(images/' + (100 + i) + '.jpg)'));
+        });
+        $ul.dsmenu('init', {row : {max : 1000}, maxSize : 200});
         $("a.add").bind('click', function(){
-            $("ul.menu").dsmenu('expand');
+            $ul.dsmenu('expand');
         }).css('z-index', 9999);
         $("a.remove").bind('click', function(){
-            $("ul.menu").dsmenu('contract');
+            $ul.dsmenu('contract');
         }).css('z-index', 9999);
-        $("ul.menu").find('li').each(function(i){
-            $(this).css('background-image', 'url(images/' + (100 + i) + '.jpg)');
-        });
     });
   </script>
   <link media="screen, projection" type="text/css" rel="stylesheet" href="jquery.3dsmenu.css">
   <body>
      <ul class="menu">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-      </ul>
+    </ul>
   </div>
     <ul>
         <li><a href="javascript:void(0);" class="add">add</a></li>
