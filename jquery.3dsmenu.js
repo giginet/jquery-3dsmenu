@@ -4,6 +4,7 @@
         animation         : true,
         animationDuration : 'normal',
         margin            : [3, 3],
+        maxSize           : false,
         resizable         : true,
         row               : {
                              initial : 3,
@@ -30,7 +31,7 @@
                     $cell.attr({ x : x, y : y});
                 })
             },
-            collision : 'flip flip'
+            collision : 'fit fit'
         });
     };
 
@@ -40,7 +41,11 @@
             options = $.extend(true, options, custom);
             $(this).each(function(){
                 var row = options.row.initial;
+                console.log($(this));
                 $.data(this, 'row', options.row.initial);
+                $(this).css({
+                    position : 'relative'
+                });
                 var $cells = $(this).find('li').css({
                     width    : '30px',
                     height   : '30px',
@@ -48,9 +53,6 @@
                     display  : 'block',
                     right    : 0,
                     bottom   : 0
-                });
-                $(this).find('li').each(function(i){
-                    $(this).text(i);
                 });
                 $(this)[pluginName]('setRow', options.row.initial);
             });
@@ -64,8 +66,17 @@
                 var $ul = $(this);
                 $(this).find('li').each(function(i){
                     $cell = $(this);
-                    var h = ($ul.height() - options.margin[0] * (row + 1)) / row;
-                    var w = h;
+                    var calc = ($ul.innerHeight() - options.margin[0] * (row + 1)) / row;
+                    if (typeof(options.maxSize) === 'Object') {
+                        var h = Math.min(calc / row, options.maxSize[1]);
+                        var w = Math.min(calc, options.maxSize[0]);
+                    } else if(typeof(options.maxSize) === 'Number'){
+                        var h = Math.min(calc, options.maxSize);
+                        var w = Math.min(calc, options.maxSize);
+                    } else {
+                        var h = calc;
+                        var w = calc;
+                    }
                     var x = (options.margin[0] + (w + options.margin[0]) * Math.floor(i / row));
                     var y = (options.margin[1] + (h + options.margin[1]) * (i % row));
                     var duration = animation ? options.animationDuration : 0;

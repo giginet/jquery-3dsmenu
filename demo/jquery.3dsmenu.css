@@ -1,11 +1,15 @@
-ul {
-    width: 60%;
+ul.menu {
+    width: 80%;
     height: 300px;
     border: 1px solid #777;
     background-color: #fbca93;
+    overflow: hidden;
 }
 
-li {
+ul.menu li {
     background-color: #bcd5e6;
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: cover;
     text-align: center;
 }

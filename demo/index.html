@@ -10,18 +10,68 @@
   <link rel="stylesheet" href="jquery.3dsmenu.css" type="text/css" media="screen, projection"/>
   <script type="text/javascript">
     $(document).ready(function(){
-        $("ul").dsmenu('init', {row : {max : 1000}});
+        $("ul.menu").dsmenu('init', {row : {max : 1000}});
         $("a.add").bind('click', function(){
-            $("ul").dsmenu('expand');
+            $("ul.menu").dsmenu('expand');
         }).css('z-index', 9999);
         $("a.remove").bind('click', function(){
-            $("ul").dsmenu('contract');
+            $("ul.menu").dsmenu('contract');
         }).css('z-index', 9999);
+        $("ul.menu").find('li').each(function(i){
+            $(this).css('background-image', 'url(images/' + (100 + i) + '.jpg)');
+        });
     });
   </script>
   <link media="screen, projection" type="text/css" rel="stylesheet" href="jquery.3dsmenu.css">
   <body>
-     <ul class="parent">
+     <ul class="menu">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
           <li></li>
           <li></li>
           <li></li>
@@ -55,30 +105,15 @@
           <li></li>
           <li></li>
       </ul>
-    </div>
-    <a href="javascript:void(0);" class="add">add</a>
-    <a href="javascript:void(0);" class="remove">remove</a>
-
-    <ul class="parent">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
-      </ul>
-
+  </div>
+    <ul>
+        <li><a href="javascript:void(0);" class="add">add</a></li>
+        <li><a href="javascript:void(0);" class="remove">remove</a></li>
+    </ul>
+    <footer>
+        <address><a href="https://github.com/giginet/jquery-3dsmenu">jquery.3dsmenu.js</a></address>
+        <address><a href="http://hide.kanari.info/plate.php">Sample pictures are downloaded from here. Thank you.</a></address>
+    </footer>
   </body>
 </html>
 
