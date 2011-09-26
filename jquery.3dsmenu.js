@@ -4,14 +4,34 @@
         animation         : true,
         animationDuration : 'normal',
         margin            : [3, 3],
+        resizable         : true,
         row               : {
                              initial : 3,
                              max     : 6,
                              min     : 1
         },
-        resizable         : true,
         scroll            : true,
         sortable          : true,
+    };
+
+    var moveCell = function($cell, x, y, of, w, h, duration){
+        $cell.position({
+            of : of,
+            at : 'left top',
+            my : 'left top',
+            offset : x + ' ' + y,
+            using : function(result){
+                $cell.animate({
+                    'top'    : result.top,
+                    'left'   : result.left,
+                    'width'  : w,
+                    'height' : h
+                }, duration, function(){
+                    $cell.attr({ x : x, y : y});
+                })
+            },
+            collision : 'flip flip'
+        });
     };
 
     var methods = {
@@ -41,26 +61,33 @@
                 var $ul = $(this);
                 $(this).find('li').each(function(i){
                     $cell = $(this);
+                    $cell.text(i);
                     var h = ($ul.height() - options.margin[0] * (row + 1)) / row;
                     var w = h;
                     var x = (options.margin[0] + (w + options.margin[0]) * Math.floor(i / row));
                     var y = (options.margin[1] + (h + options.margin[1]) * (i % row));
                     var duration = animation ? options.animationDuration : 0;
-                    $cell.position({
-                        of : $ul,
-                        at : 'left top',
-                        my : 'left top',
-                        offset : x + ' ' + y,
-                        using : function(result){
-                            $cell.animate({
-                                'top'    : result.top,
-                                'left'   : result.left,
-                                'width'  : w,
-                                'height' : h
-                            }, duration)
-                        },
-                        collision : 'flip flip'
+                    var position = {x : x, y : y};
+                    $cell.draggable({
+                        cursorAt : { top : h/2 , left : w/2 },
+                        connectToSortable : true,
+                        opacity  : 0.5,
+                        //revert   : true,
+                        revertDuration : 100,
                     });
+                    $cell.droppable({
+                        accept : $ul.find('li'),
+                        drop : function(event, ui){
+                            console.log("hoge");
+                            var $drag = ui.draggable;
+                            var $drop = $(this);
+                            var duration = animation ? options.animationDuration : 0;
+                            var dropPosition = { x : $drop.attr(x), y : $drop.attr(y) };
+                            moveCell($drag, dropPosition.x, dropPosition.y, $ul, w, h, duration);
+                            moveCell($drop, position.x, position.y, $ul, w, h, duration);
+                        }
+                    });
+                    moveCell($cell, x, y, $ul, w, h, duration);
                 });
             });
             return this;
