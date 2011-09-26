@@ -71,10 +71,11 @@
                     var duration = animation ? options.animationDuration : 0;
                     $cell.draggable({
                         cursorAt : { top : h/2 , left : w/2 },
-                        delay    : 1000,
+                        delay    : 500,
                         opacity  : 0.5,
                         revert   : 'invalid',
                         revertDuration : 100,
+                        zIndex   : 9999
                     });
                     $cell.droppable({
                         accept : $ul.find('li'),
