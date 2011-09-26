@@ -49,6 +49,9 @@
                     right    : 0,
                     bottom   : 0
                 });
+                $(this).find('li').each(function(i){
+                    $(this).text(i);
+                });
                 $(this)[pluginName]('setRow', options.row.initial);
             });
             return this;
@@ -61,30 +64,32 @@
                 var $ul = $(this);
                 $(this).find('li').each(function(i){
                     $cell = $(this);
-                    $cell.text(i);
                     var h = ($ul.height() - options.margin[0] * (row + 1)) / row;
                     var w = h;
                     var x = (options.margin[0] + (w + options.margin[0]) * Math.floor(i / row));
                     var y = (options.margin[1] + (h + options.margin[1]) * (i % row));
                     var duration = animation ? options.animationDuration : 0;
-                    var position = {x : x, y : y};
                     $cell.draggable({
                         cursorAt : { top : h/2 , left : w/2 },
-                        connectToSortable : true,
+                        delay    : 1000,
                         opacity  : 0.5,
-                        //revert   : true,
+                        revert   : 'invalid',
                         revertDuration : 100,
                     });
                     $cell.droppable({
                         accept : $ul.find('li'),
                         drop : function(event, ui){
-                            console.log("hoge");
+                            var duration = options.animation ? options.animationDuration : 0;
                             var $drag = ui.draggable;
                             var $drop = $(this);
-                            var duration = animation ? options.animationDuration : 0;
-                            var dropPosition = { x : $drop.attr(x), y : $drop.attr(y) };
+                            var dragPosition = { x : $drag.attr('x'), y : $drag.attr('y') };
+                            var dropPosition = { x : $drop.attr('x'), y : $drop.attr('y') };
                             moveCell($drag, dropPosition.x, dropPosition.y, $ul, w, h, duration);
-                            moveCell($drop, position.x, position.y, $ul, w, h, duration);
+                            moveCell($drop, dragPosition.x, dragPosition.y, $ul, w, h, duration);
+                            $drop2 = $drop.clone().insertAfter($drop);
+                            $drag2 = $drag.clone().insertAfter($drag);
+                            $drag2.replaceWith($drop);
+                            $drop2.replaceWith($drag);
                         }
                     });
                     moveCell($cell, x, y, $ul, w, h, duration);
