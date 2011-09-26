@@ -16,9 +16,9 @@ require jQuery1.3.2+ and jQueryUI 1.8.16+ (include Core, Draggable and Droppable
 
 ::
 
-$(document).ready(function(){
-  $('ul').dsmenu();
-});
+  $(document).ready(function(){
+    $('ul').dsmenu();
+  });
 
 
 Methods
