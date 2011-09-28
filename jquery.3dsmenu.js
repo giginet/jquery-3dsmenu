@@ -11,7 +11,7 @@
                              min     : 1
         },
         scroll            : true,
-        sortable          : true,
+        sortable          : true
     };
 
     var moveCell = function($cell, x, y, of, w, h, duration){
@@ -36,7 +36,7 @@
 
     var methods = {
         init : function(custom){
-            if(!custom) custom = {};
+            if(!custom){ custom = {}; }
             options = $.extend(true, options, custom);
             $(this).each(function(){
                 var row = options.row.initial;
@@ -60,21 +60,22 @@
         setRow : function(newRow, animation){
             $(this).each(function(){
                 var row = newRow;
-                if(row < options.row.min || row > options.row.max) return true;
+                if(row < options.row.min || row > options.row.max){ return true; }
                 $.data(this, 'row', row);
                 var $ul = $(this);
                 $(this).find('li').each(function(i){
                     $cell = $(this);
                     var calc = ($ul.innerHeight() - options.margin[1] * (row + 1)) / row;
+                    var h, w;
                     if (typeof(options.maxSize) === 'object') {
-                        var h = Math.min(calc / row, options.maxSize[1]);
-                        var w = Math.min(calc, options.maxSize[0]);
+                        h = Math.min(calc / row, options.maxSize[1]);
+                        w = Math.min(calc, options.maxSize[0]);
                     } else if(typeof(options.maxSize) === 'number'){
-                        var h = Math.min(calc, options.maxSize);
-                        var w = Math.min(calc, options.maxSize);
+                        h = Math.min(calc, options.maxSize);
+                        w = Math.min(calc, options.maxSize);
                     } else {
-                        var h = calc;
-                        var w = calc;
+                        h = calc;
+                        w = calc;
                     }
                     marginTop = ($ul.innerHeight() - (options.margin[1] * (row - 1) + h * row))/2;
                     var x = (options.margin[0] + (w + options.margin[0]) * Math.floor(i / row));
